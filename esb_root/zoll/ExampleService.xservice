@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service protocol="http" errorHandler="soapErrorhandler" xmlns="http://www.artofarc.com/esb/service">
+  <httpBindURI>/exampleUsingport</httpBindURI>
+  <actionPipeline name="soapErrorhandler">
+	 <transform>
+		<xquery><![CDATA[declare namespace soapenv="http://schemas.xmlsoap.org/soap/envelope/"; <soapenv:Body><soapenv:Fault><faultcode>soapenv:Server</faultcode><faultstring>{.}</faultstring></soapenv:Fault></soapenv:Body>]]></xquery>
+	 </transform>
+	 <assign>	 
+		<assignment variable="HttpResponseCode">500</assignment>
+	 </assign>
+	 <wrapSOAP11/>
+  </actionPipeline>
+  <unwrapSOAP11 wsdlURI="zoll/example.wsdl"/>
+  <assign>
+	<assignment variable="messageHeader">*[1]/*[1]</assignment>
+  </assign>
+  <fork copyMessage="true">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>2</logPointNr><logMessage>ESB Eingang</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}<message>{serialize(.)}</message></logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <validate schemaURI="zoll/example.wsdl" expression="*[1]"/>
+  <fork copyMessage="false">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>5</logPointNr><logMessage>Validierung gegen example.wsdl</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <conditional expression="*[1]/v1:messageHeader[1]/v1:senderFQN[1]/text() != 'usingPort1'">
+	 <nsDecl namespace="http://aoa.de/ei/foundation/v1" prefix="v1"/>
+	 <transform>
+		<xquery><![CDATA[declare namespace soapenv="http://schemas.xmlsoap.org/soap/envelope/"; declare namespace v1="http://aoa.de/ei/foundation/v1"; declare variable $messageHeader external; <soapenv:Body><soapenv:Fault><faultcode>soapenv:Server</faultcode><faultstring>Routing not allowed for {$messageHeader/v1:senderFQN[1]/text()}</faultstring></soapenv:Fault></soapenv:Body>]]></xquery>
+	 </transform>
+	 <assign>	 
+		<assignment variable="HttpResponseCode">500</assignment>
+	 </assign>
+	 <wrapSOAP11/>
+  </conditional>
+  <fork copyMessage="false">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>8</logPointNr><logMessage>Routing zu http://localhost:8091/mockDemoPortType1Binding</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <preSOAP11Http wsdlURI="zoll/example.wsdl"/>
+  <http>
+    <url>http://192.168.178.32:8091/mockDemoPortType1Binding</url>
+  </http>
+  <postSOAP11Http/>
+  <fork copyMessage="true">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>11</logPointNr><logMessage>Antwort vom Provider</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}<message>{serialize(.)}</message></logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <validate schemaURI="zoll/example.wsdl" expression="*[1]"/>
+  <fork copyMessage="false">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>14</logPointNr><logMessage>Validiere Response gegen example.wsdl</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <fork copyMessage="false">
+	<transform>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>17</logPointNr><logMessage>Response zum Service Consumer</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
+	</transform>
+	<xml2json schemaURI="zoll/de.aoa.ei.lms.v1.xsd"/>
+	<produceKafka topic="logs">
+		<property key="bootstrap.servers">kafka1:9092</property>
+		<property key="key.serializer">org.apache.kafka.common.serialization.LongSerializer</property>
+		<property key="value.serializer">org.apache.kafka.common.serialization.StringSerializer</property>
+	</produceKafka>
+  </fork>
+  <wrapSOAP11/>
+</service>
