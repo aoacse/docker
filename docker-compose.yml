@@ -60,3 +60,5 @@ services:
     volumes:
       - "/Users/sensler/git/kafka-elk-docker-compose/deploy:/opt/jboss/wildfly/standalone/deployments"
       - "/Users/sensler/git/kafka-elk-docker-compose/esb_root:/opt/jboss/esb_root"
+  elasticsearchkafkaconnector:
+    image: elasticsearchkafkaconnector
