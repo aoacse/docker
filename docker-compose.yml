@@ -58,8 +58,8 @@ services:
       - "8080:8080"
       - "9990:9990"
     volumes:
-      - "/Users/sensler/git/kafka-elk-docker-compose/deploy:/opt/jboss/wildfly/standalone/deployments"
-      - "/Users/sensler/git/kafka-elk-docker-compose/esb_root:/opt/jboss/esb_root"
+      - "./deploy:/opt/jboss/wildfly/standalone/deployments"
+      - "./esb_root:/opt/jboss/esb_root"
   elasticsearchkafkaconnector:
     image: elasticsearchkafkaconnector
 
