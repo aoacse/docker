@@ -36,6 +36,10 @@ The first four are downloaded automatically and belong to the elk stack. But bef
    ```cd elasticsearchconnector/
       docker build -t elasticsearchkafkaconnector
      ```
+5. Change to the root of this git repo and use docker-compose to start
+``` docker-compose up
+´´´
+
 ## Test
 1. Start your local SOAP-UI
 2. Import the SOAP-UI Project from soapuimock/
