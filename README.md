@@ -63,4 +63,5 @@ The first thre are downloaded automatically and belong to the elk stack. The for
 2. Kibana: http://localhost:5601/
 
 # Hints
-remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+1. remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+2. Windows user please set autocrlf=false for this git repository
