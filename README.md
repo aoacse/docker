@@ -37,14 +37,21 @@ The first four are downloaded automatically and belong to the elk stack. But bef
       docker build -t elasticsearchkafkaconnector
      ```
 5. Change to the root of this git repo and use docker-compose to start
-``` docker-compose up
-´´´
+    ``` 
+    docker-compose up
+    ``` 
 
 ## Test
 1. Start your local SOAP-UI
-2. Import the SOAP-UI Project from soapuimock/
+2. Import the SOAP-UI Project from 
+    ```
+    soapuimock/
+    ```
 3. Start a test request
 
+### URLs:
+1. Admin Zero ESB: http://localhost:8080/esb0/admin
+2. Kibana: http://localhost:5601/
 
 # Hints
 remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
