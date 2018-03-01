@@ -11,7 +11,7 @@ In docker-compose.yml are 6 images:
 * elasticsearch
 * kafka1
 * kibana
-* jboss
+* tomcat1
 * soapuimock
 * elasticsearchkafkaconnector
 
@@ -51,12 +51,12 @@ The first thre are downloaded automatically and belong to the elk stack. The for
     ```
 3. Start a test request
 
-## Configure Kabana
-1. Log in to Kabana
+## Configure Kibana
+1. Log in to Kibana
 2. Create an index called
 ```logs_index
 ```
-3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have ti send some requests before you can create the index.
+3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have to send some requests before you can create the index.
 
 ### URLs:
 1. Admin Zero ESB: http://kafka1:8080/esb0/admin
