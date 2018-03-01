@@ -24,7 +24,7 @@ The first thre are downloaded automatically and belong to the elk stack. The for
     git clone https://github.com/aoacse/docker.git
     ```
 
-2. set you hosts file 
+2. set your hosts file 
    ```
    127.0.0.1       localhost kafka1
    ```
@@ -35,7 +35,7 @@ The first thre are downloaded automatically and belong to the elk stack. The for
     ```
 4. Build elastisearchconnector image
    ```
-       cd elasticsearchconnector/
+      cd elasticsearchconnector/
       docker build -t elasticsearchkafkaconnector .
      ```
 5. Change to the root of this git repo and use docker-compose to start
