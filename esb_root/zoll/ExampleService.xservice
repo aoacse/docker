@@ -60,7 +60,7 @@
   </fork>
   <preSOAP11Http wsdlURI="zoll/example.wsdl"/>
   <http>
-    <url>http://192.168.178.32:8091/mockDemoPortType1Binding</url>
+    <url>http://soapuimock:8091/mockDemoPortType1Binding</url>
   </http>
   <postSOAP11Http/>
   <fork copyMessage="true">
