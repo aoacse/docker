@@ -49,6 +49,13 @@ The first thre are downloaded automatically and belong to the elk stack. The for
     ```
 3. Start a test request
 
+## Configure Kabana
+1. Log in to Kabana
+2. Create an index called
+```logs_index
+```
+3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have ti send some requests before you can create the index.
+
 ### URLs:
 1. Admin Zero ESB: http://localhost:8080/esb0/admin
 2. Kibana: http://localhost:5601/
