@@ -15,7 +15,7 @@ In docker-compose.yml are 6 images:
 * soapuimock
 * elasticsearchkafkaconnector
 
-The first four are downloaded automatically and belong to the elk stack. But before you start with docker-compose, you have to build the soapuimock and elastisearchconnector on your own.
+The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well, but is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
 
 ## Setup
 
