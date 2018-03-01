@@ -15,7 +15,7 @@ In docker-compose.yml are 6 images:
 * soapuimock
 * elasticsearchkafkaconnector
 
-The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well, but is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
+The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well. It is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
 
 ## Setup
 
@@ -26,7 +26,7 @@ The first thre are downloaded automatically and belong to the elk stack. The for
 
 2. set your hosts file 
    ```
-   127.0.0.1       localhost kafka1
+   127.0.0.1   kafka1
    ```
 3. Build soapuimock image
    ```
@@ -59,7 +59,7 @@ The first thre are downloaded automatically and belong to the elk stack. The for
 3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have ti send some requests before you can create the index.
 
 ### URLs:
-1. Admin Zero ESB: http://localhost:8080/esb0/admin
+1. Admin Zero ESB: http://kafka1:8080/esb0/admin
 2. Kibana: http://localhost:5601/
 
 # Hints
