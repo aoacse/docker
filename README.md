@@ -1,23 +1,41 @@
-# follows later
+# Protoype of MVP Integration Plattform
 
+* ELK Stack for logging
+* Zero ESB as service gateway
+* SOAP-UI Mock Server for demonstration
 
+# Docker Images:
+In docker-compose.yml are 6 images:
 
+elasticsearch
+kafka1
+kibana
+jboss
+soapuimock
+elasticsearchkafkaconnector
 
-rmove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
-
-
-
-# kafka-elk-docker-compose
-This repository deploys with *docker-compose* an ELK stack which has kafka cluster buffering the logs collection process. This repository tries to make your life easier while testing a similar architecture. It is highly discouraged to use this repository as a production ready solution of this stack.
+The first four are downloaded automatically. But before you start with docker-compose, you have to build the soapuimock and elastisearchconnector on your own.
 
 ## Setup
 
-1.  [Install Docker engine](https://docs.docker.com/engine/installation/)
-2.  [Install Docker compose](https://docs.docker.com/compose/install/)
-3.  Clone this repository:
+1.  Clone this repository:
     ```
-    git clone git@github.com:sermilrod/kafka-elk-docker-compose.git
+    git clone https://github.com/aoacse/docker.git
     ```
+
+2. set you hosts file 
+   ```
+   127.0.0.1       localhost kafka1
+   ```
+3. Build soapuimock image
+
+
+# Hints
+remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
+
+
+
+
 4. [Configure File Descriptors and MMap](https://www.elastic.co/guide/en/elasticsearch/guide/current/_file_descriptors_and_mmap.html)
 To do so you have to type the following command:
     ```
