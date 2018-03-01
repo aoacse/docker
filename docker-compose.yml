@@ -62,3 +62,8 @@ services:
       - "/Users/sensler/git/kafka-elk-docker-compose/esb_root:/opt/jboss/esb_root"
   elasticsearchkafkaconnector:
     image: elasticsearchkafkaconnector
+
+  soapuimock:
+    image: soapui
+    ports: 
+      - "8091:8091"
