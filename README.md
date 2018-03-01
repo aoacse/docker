@@ -15,7 +15,7 @@ In docker-compose.yml are 6 images:
 * soapuimock
 * elasticsearchkafkaconnector
 
-The first four are downloaded automatically and belong to the elk stack. But before you start with docker-compose, you have to build the soapuimock and elastisearchconnector on your own.
+The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well, but is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
 
 ## Setup
 
@@ -30,17 +30,28 @@ The first four are downloaded automatically and belong to the elk stack. But bef
    ```
 3. Build soapuimock image
    ```cd soapuimock/
-      docker build -t soapui
+      docker build -t soapui .
      ```
 4. Build elastisearchconnector image
    ```cd elasticsearchconnector/
-      docker build -t elasticsearchkafkaconnector
+      docker build -t elasticsearchkafkaconnector .
      ```
+5. Change to the root of this git repo and use docker-compose to start
+    ``` 
+    docker-compose up
+    ``` 
+
 ## Test
 1. Start your local SOAP-UI
-2. Import the SOAP-UI Project from soapuimock/
+2. Import the SOAP-UI Project from 
+    ```
+    soapuimock/
+    ```
 3. Start a test request
 
+### URLs:
+1. Admin Zero ESB: http://localhost:8080/esb0/admin
+2. Kibana: http://localhost:5601/
 
 # Hints
 remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
