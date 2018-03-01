@@ -52,14 +52,13 @@ services:
       SERVERS: zoo1
     ports:
       - "2181:2181"
-  jboss1:
-    image: jboss/wildfly
+  tomcat1:
+    image: rossbachp/apache-tomcat8
     ports:
       - "8080:8080"
-      - "9990:9990"
     volumes:
-      - "./deploy:/opt/jboss/wildfly/standalone/deployments"
-      - "./esb_root:/opt/jboss/esb_root"
+      - "./deploy:/webapps/"
+      - "./esb_root:/opt/tomcat/esb_root"
   elasticsearchkafkaconnector:
     image: elasticsearchkafkaconnector
 
