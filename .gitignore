@@ -1,1 +1,5 @@
 .DS_Store
+
+esdata/nodes/
+
+deploy/esb0/

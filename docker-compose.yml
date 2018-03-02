@@ -1,7 +1,7 @@
 version: '2'
 services:
   kibana:
-    image: docker.elastic.co/kibana/kibana:5.4.2
+    image: docker.elastic.co/kibana/kibana:6.2.2
     volumes:
       - "./kibana.yml:/usr/share/kibana/config/kibana.yml"
     restart: always
@@ -12,7 +12,7 @@ services:
     depends_on:
       - elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.4.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -53,16 +53,15 @@ services:
     ports:
       - "2181:2181"
   tomcat1:
-    image: rossbachp/apache-tomcat8
+    image: jeanblanchard/tomcat:8.0.24-java8
     ports:
       - "8080:8080"
     volumes:
-      - "./deploy:/webapps/"
-      - "./esb_root:/opt/tomcat/esb_root"
+      - "./deploy:/opt/apache-tomcat-8.0.24/webapps/"
+      - "./esb_root:/root/esb_root"
   elasticsearchkafkaconnector:
     image: elasticsearchkafkaconnector
-
   soapuimock:
     image: soapui
-    ports: 
+    ports:
       - "8091:8091"

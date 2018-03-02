@@ -52,7 +52,7 @@
   </conditional>
   <fork copyMessage="false" workerPool="LMS">
 	<transform>
-		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>8</logPointNr><logMessage>Routing zu http://localhost:8091/mockDemoPortType1Binding</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
+		<xquery><![CDATA[declare variable $messageHeader external; <logEvent xmlns="http://aoa.de/ei/lms/v1"><logPointNr>8</logPointNr><logMessage>Routing zu http://soapuimock:8091/mockDemoPortType1Binding</logMessage><logTimestamp>{current-dateTime()}</logTimestamp>{$messageHeader}</logEvent>]]></xquery>
 	</transform>
 	<xml2json schemaURI="de.aoa.ei.lms.v1.xsd"/>
 	<produceKafka topic="logs">
