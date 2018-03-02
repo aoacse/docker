@@ -49,14 +49,16 @@ The first thre are downloaded automatically and belong to the elk stack. The for
     ```
     soapuimock/
     ```
-3. Start a test request
+3. Send few test requests
 
 ## Configure Kibana
-1. Log in to Kibana
-2. Create an index called
-```logs_index
+1. Log in to Kibana -  http://localhost:5601/
+2. In Kibana got to "Management" (left menue bottom item) and create an index.
+```
+logs_index
 ```
 3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have to send some requests before you can create the index.
+4. Next go to "Saved Objects" and import the json file from the kibana git folder.
 
 ### URLs:
 1. Admin Zero ESB: http://kafka1:8080/esb0/admin
