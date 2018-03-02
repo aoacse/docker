@@ -59,8 +59,14 @@ services:
     volumes:
       - "./deploy:/opt/apache-tomcat-8.0.24/webapps/"
       - "./esb_root:/root/esb_root"
+  
   elasticsearchkafkaconnector:
     image: elasticsearchkafkaconnector
+    links:
+      - elasticsearch
+      - kafka1 
+    restart: on-failure
+  
   soapuimock:
     image: soapui
     ports:

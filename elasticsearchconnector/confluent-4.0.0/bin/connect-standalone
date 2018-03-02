@@ -67,6 +67,6 @@ case $COMMAND in
 esac
 
 export CLASSPATH
-echo $CLASSPATH
+while ! curl -s elasticsearch:9200 > /dev/null; do echo waiting for xxx; sleep 3; done;
 exec $(dirname $0)/kafka-run-class $EXTRA_ARGS org.apache.kafka.connect.cli.ConnectStandalone "$@"
 
