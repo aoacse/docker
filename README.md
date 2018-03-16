@@ -6,7 +6,7 @@
 * Elasticsearchconnector to connect kafka with the ELK stack and not using Logstash.
 
 # Docker Images:
-In docker-compose.yml are 6 images:
+In docker-compose.yml are 11 images:
 
 * elasticsearch
 * kafka1
@@ -14,6 +14,11 @@ In docker-compose.yml are 6 images:
 * tomcat1
 * soapuimock
 * elasticsearchkafkaconnector
+* gravitee API management UI
+* gravitee API management API
+* gravitee API Gateway
+* MongoDB
+* Zookeeper
 
 The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well. It is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
 
@@ -63,6 +68,8 @@ logs_index
 ### URLs:
 1. Admin Zero ESB: http://kafka1:8080/esb0/admin
 2. Kibana: http://localhost:5601/
+3. API Management UI: http://localhost:8002/#!/ admin/admin
+4. API Gateway URL: http://localhost:8000 - KONTEXT_PATH
 
 # Hints
 1. remove dangling images (none) -> docker rmi $(docker images -a|grep "<none>"|awk '$1=="<none>" {print $3}')
