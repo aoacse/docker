@@ -1,5 +1,6 @@
 .DS_Store
 
 esdata/nodes/
-
+local_datamongo2/
+local_datamongo/
 deploy/esb0/

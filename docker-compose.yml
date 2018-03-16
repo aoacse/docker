@@ -1,7 +1,7 @@
 version: '2'
 services:
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.2.2
+    image: docker.elastic.co/kibana/kibana:5.4.3
     volumes:
       - "./kibana.yml:/usr/share/kibana/config/kibana.yml"
     restart: always
@@ -12,7 +12,7 @@ services:
     depends_on:
       - elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.4.3
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -71,3 +71,49 @@ services:
     image: soapui
     ports:
       - "8091:8091"
+  local_mongodb:
+    extends:
+      file: common.yml
+      service: mongodb
+    volumes:
+      - ./local_datamongo2:/data/db
+      - ./logs/mongodb:/var/log/mongodb
+
+  local_gateway:
+    extends:
+      file: common.yml
+      service: gateway
+    links:
+      - "local_mongodb:demo-mongodb"
+    ports:
+      - "8000:8082"
+    volumes:
+      - ./logs/gateway:/etc/gravitee.io/log
+    environment:
+      - GRAVITEEIO_MONGODB_HOST=demo-mongodb
+      - GRAVITEEIO_ELASTIC_HOST=elasticsearch
+
+  local_managementui:
+    extends:
+      file: common.yml
+      service: managementui
+    ports:
+      - "8002:80"
+    volumes:
+      - ./logs/management-ui:/var/log/httpd
+    environment:
+      - MGMT_API_URL=http:\/\/localhost:8005\/management\/
+
+  local_managementapi:
+    extends:
+      file: common.yml
+      service: managementapi
+    ports:
+      - "8005:8083"
+    volumes:
+      - ./logs/management-api:/home/gravitee/logs
+    links:
+      - "local_mongodb:demo-mongodb"
+    environment:
+      - GRAVITEEIO_MONGODB_HOST=demo-mongodb
+      - GRAVITEEIO_ELASTIC_HOST=elasticsearch
