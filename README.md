@@ -20,7 +20,7 @@ In docker-compose.yml are 11 images:
 * MongoDB
 * Zookeeper
 
-The first thre are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well. It is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4).
+The first three are downloaded automatically and belong to the elk stack. The forth one downloads automatically as well. It is required for running the Zero ESB. The fifth and the sixth images need to be build on your own (step 3 & 4). The other images are also downlowed automacically.
 
 ## Setup
 
@@ -63,7 +63,10 @@ The first thre are downloaded automatically and belong to the elk stack. The for
 logs_index
 ```
 3. select timestamp. If you cannot see the timestamp, press "refresh fields". Important: You have to send some requests before you can create the index.
+
 4. Next go to "Saved Objects" and import the json file from the kibana git folder.
+
+5. you can also use the API Management to define your own API. Login into API Management UI: http://localhost:8002/#!/ admin/admin and start publishing an API.
 
 ### URLs:
 1. Admin Zero ESB: http://kafka1:8080/esb0/admin
